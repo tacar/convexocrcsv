@@ -1,0 +1,573 @@
+{
+  "counts": {
+    "categories": 24,
+    "items": 9,
+    "users": 16
+  },
+  "exportedAt": 1762240677301,
+  "tables": {
+    "kaumono_categories": [
+      {
+        "_creationTime": 1760920839052.9773,
+        "_id": "j575wyq0fhwrxcrazk9ndvak957stwdw",
+        "appId": "kaumono",
+        "createdAt": 1760920839053,
+        "memberIds": [
+          "jh755sc99pnpmkhegyw5e54f017sv9f9"
+        ],
+        "name": "iOSテストカテゴリ",
+        "ownerId": "jh755sc99pnpmkhegyw5e54f017sv9f9",
+        "updatedAt": 1760920839053
+      },
+      {
+        "_creationTime": 1761160326976.6643,
+        "_id": "j570t244qxs3rcpmgzrvydejsx7szshb",
+        "appId": "kaumono",
+        "createdAt": 1761160326980,
+        "joinTokenExpiresAt": 1761632830101,
+        "joinTokenHash": "M2dnbzZqdjQybnFtaDhyOWdnbA==",
+        "memberIds": [
+          "jh73tkg0j6e251r2vswf22dy857srzvk",
+          "jh784144sq7y3gtjbwzr1wb9y17szn49"
+        ],
+        "name": "ワイズ",
+        "ownerId": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "updatedAt": 1761554410357
+      },
+      {
+        "_creationTime": 1761356129335.2131,
+        "_id": "j57azrpk4edt8trn8szyhhr7097t54vr",
+        "appId": "kaumono",
+        "createdAt": 1761356129339,
+        "joinTokenExpiresAt": 1762212078168,
+        "joinTokenHash": "cTdneWhza2c3dm1oaWM0cjRv",
+        "memberIds": [
+          "jh73tkg0j6e251r2vswf22dy857srzvk"
+        ],
+        "name": "テスト",
+        "ownerId": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "updatedAt": 1761359330185
+      },
+      {
+        "_creationTime": 1761356547098.011,
+        "_id": "j579f1v8capxn57x9za57vznmd7t5kb8",
+        "appId": "kaumono",
+        "createdAt": 1761356547101,
+        "joinTokenExpiresAt": 1761444933136,
+        "joinTokenHash": "NWR3bTd4a2x6azltaDVuZTY4Zw==",
+        "memberIds": [
+          "jh73tkg0j6e251r2vswf22dy857srzvk"
+        ],
+        "name": "なか",
+        "ownerId": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "updatedAt": 1761359344292
+      },
+      {
+        "_creationTime": 1761501023209.842,
+        "_id": "j579p8g2xc7ejheeaevv9tt75h7t78fx",
+        "appId": "kaumono",
+        "createdAt": 1761501023213,
+        "joinTokenExpiresAt": 1761588670113,
+        "joinTokenHash": "YXNhcHdlOHNzaXdtaDgweXllOQ==",
+        "memberIds": [
+          "jh784144sq7y3gtjbwzr1wb9y17szn49",
+          "jh73tkg0j6e251r2vswf22dy857srzvk"
+        ],
+        "name": "みせ",
+        "ownerId": "jh784144sq7y3gtjbwzr1wb9y17szn49",
+        "updatedAt": 1761501023213
+      },
+      {
+        "_creationTime": 1761519627610.7988,
+        "_id": "j574r28spf2m356bpfp4qzm5y97t7dqx",
+        "appId": "kaumono",
+        "createdAt": 1761519627614,
+        "joinTokenExpiresAt": 1761610752412,
+        "joinTokenHash": "MGV5ZWU4NDdwM3o1bWg4ZTQ5N2c=",
+        "memberIds": [
+          "jh73tkg0j6e251r2vswf22dy857srzvk"
+        ],
+        "name": "まいばす",
+        "ownerId": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "updatedAt": 1761524328688
+      },
+      {
+        "_creationTime": 1761521528750.4272,
+        "_id": "j574m6yqvp2kfv44edepzjsczd7t6hwv",
+        "appId": "kaumono",
+        "createdAt": 1761521528754,
+        "joinTokenExpiresAt": 1761615621341,
+        "joinTokenHash": "eDVocDU3a2M4NG1oOGgwbTNo",
+        "memberIds": [
+          "jh73tkg0j6e251r2vswf22dy857srzvk",
+          "jh784144sq7y3gtjbwzr1wb9y17szn49"
+        ],
+        "name": "まいばす",
+        "ownerId": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "updatedAt": 1761528707114
+      },
+      {
+        "_creationTime": 1761522090379.233,
+        "_id": "j57cb9efh6j0sraabgtjhgh8g57t74nb",
+        "appId": "kaumono",
+        "createdAt": 1761522090383,
+        "memberIds": [
+          "jh73tkg0j6e251r2vswf22dy857srzvk"
+        ],
+        "name": "テスト",
+        "ownerId": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "updatedAt": 1761522090383
+      },
+      {
+        "_creationTime": 1761530268045.793,
+        "_id": "j574yqzamxaqq3pnmvze5a7fwd7t8h6k",
+        "appId": "kaumono",
+        "createdAt": 1761530268049,
+        "memberIds": [
+          "jh784144sq7y3gtjbwzr1wb9y17szn49"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh784144sq7y3gtjbwzr1wb9y17szn49",
+        "updatedAt": 1761530268049
+      },
+      {
+        "_creationTime": 1761530268260.576,
+        "_id": "j57ae82e675qmhrz9z64np999h7t8xpz",
+        "appId": "kaumono",
+        "createdAt": 1761530268260,
+        "memberIds": [
+          "jh784144sq7y3gtjbwzr1wb9y17szn49"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh784144sq7y3gtjbwzr1wb9y17szn49",
+        "updatedAt": 1761530268260
+      },
+      {
+        "_creationTime": 1761530888547.0012,
+        "_id": "j57c37012vscze0xxtp83ya0w57t848y",
+        "appId": "kaumono",
+        "createdAt": 1761530888547,
+        "memberIds": [
+          "jh77cbbajq7vdv6p721wk3hnkd7t987j"
+        ],
+        "name": "みせ",
+        "ownerId": "jh77cbbajq7vdv6p721wk3hnkd7t987j",
+        "updatedAt": 1761530888547
+      },
+      {
+        "_creationTime": 1761530888758.0486,
+        "_id": "j5782508kky4rkdvqpfrjy0r757t82dx",
+        "appId": "kaumono",
+        "createdAt": 1761530888758,
+        "memberIds": [
+          "jh77cbbajq7vdv6p721wk3hnkd7t987j"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh77cbbajq7vdv6p721wk3hnkd7t987j",
+        "updatedAt": 1761530888758
+      },
+      {
+        "_creationTime": 1761530888961.9546,
+        "_id": "j5701nfwweqf3ddpv95c7s2dx57t949j",
+        "appId": "kaumono",
+        "createdAt": 1761530888962,
+        "memberIds": [
+          "jh77cbbajq7vdv6p721wk3hnkd7t987j"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh77cbbajq7vdv6p721wk3hnkd7t987j",
+        "updatedAt": 1761530888962
+      },
+      {
+        "_creationTime": 1761545776814.0935,
+        "_id": "j573y806a4z1b2ede2a6cqferd7t9a83",
+        "appId": "kaumono",
+        "createdAt": 1761545776814,
+        "memberIds": [
+          "jh7ed546nww3j4vmk00rmdncax7t9p66"
+        ],
+        "name": "みせ",
+        "ownerId": "jh7ed546nww3j4vmk00rmdncax7t9p66",
+        "updatedAt": 1761545776814
+      },
+      {
+        "_creationTime": 1761545777106.387,
+        "_id": "j573ys48sdpmg7nsy452z3mx3n7t9hm7",
+        "appId": "kaumono",
+        "createdAt": 1761545777106,
+        "memberIds": [
+          "jh7ed546nww3j4vmk00rmdncax7t9p66"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh7ed546nww3j4vmk00rmdncax7t9p66",
+        "updatedAt": 1761545777106
+      },
+      {
+        "_creationTime": 1761545777312.093,
+        "_id": "j57ftnwp965fbmwdvnfmdzzjqd7t84nz",
+        "appId": "kaumono",
+        "createdAt": 1761545777312,
+        "memberIds": [
+          "jh7ed546nww3j4vmk00rmdncax7t9p66"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh7ed546nww3j4vmk00rmdncax7t9p66",
+        "updatedAt": 1761545777312
+      },
+      {
+        "_creationTime": 1761545777342.5198,
+        "_id": "j579ysn9hacg15qpj83gw2gczs7t9tqb",
+        "appId": "kaumono",
+        "createdAt": 1761545777342,
+        "memberIds": [
+          "jh7ed546nww3j4vmk00rmdncax7t9p66"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh7ed546nww3j4vmk00rmdncax7t9p66",
+        "updatedAt": 1761545777342
+      },
+      {
+        "_creationTime": 1761545909618.0486,
+        "_id": "j57b852w3hggs4wewrpzf57qrh7t9ycf",
+        "appId": "kaumono",
+        "createdAt": 1761545909618,
+        "memberIds": [
+          "jh72brxr9jt77101cnsf270tk97t89d1"
+        ],
+        "name": "みせ",
+        "ownerId": "jh72brxr9jt77101cnsf270tk97t89d1",
+        "updatedAt": 1761545909618
+      },
+      {
+        "_creationTime": 1761545909912.8132,
+        "_id": "j57cp7xd6cqe715tcrbd6v09v17t91tf",
+        "appId": "kaumono",
+        "createdAt": 1761545909913,
+        "memberIds": [
+          "jh72brxr9jt77101cnsf270tk97t89d1"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh72brxr9jt77101cnsf270tk97t89d1",
+        "updatedAt": 1761545909913
+      },
+      {
+        "_creationTime": 1761545910114.952,
+        "_id": "j5705z1d5na2ks130e8pqcgy497t97r4",
+        "appId": "kaumono",
+        "createdAt": 1761545910115,
+        "memberIds": [
+          "jh72brxr9jt77101cnsf270tk97t89d1"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh72brxr9jt77101cnsf270tk97t89d1",
+        "updatedAt": 1761545910115
+      },
+      {
+        "_creationTime": 1761547329482.3936,
+        "_id": "j571p80xcr6ereb9pb119xvzcd7t92z3",
+        "appId": "kaumono",
+        "createdAt": 1761547329482,
+        "memberIds": [
+          "jh753sm71m0pfs5ckv9pkrn8qx7t9etc"
+        ],
+        "name": "みせ",
+        "ownerId": "jh753sm71m0pfs5ckv9pkrn8qx7t9etc",
+        "updatedAt": 1761547329482
+      },
+      {
+        "_creationTime": 1761547329876.9587,
+        "_id": "j57d6gds18nn9yw1a2vw51tvts7t89ep",
+        "appId": "kaumono",
+        "createdAt": 1761547329877,
+        "memberIds": [
+          "jh753sm71m0pfs5ckv9pkrn8qx7t9etc"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh753sm71m0pfs5ckv9pkrn8qx7t9etc",
+        "updatedAt": 1761547329877
+      },
+      {
+        "_creationTime": 1761547329907.3774,
+        "_id": "j570f167wbq415jzq9q7ss0cxd7t9a34",
+        "appId": "kaumono",
+        "createdAt": 1761547329911,
+        "memberIds": [
+          "jh753sm71m0pfs5ckv9pkrn8qx7t9etc"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh753sm71m0pfs5ckv9pkrn8qx7t9etc",
+        "updatedAt": 1761547329911
+      },
+      {
+        "_creationTime": 1761547330051.7957,
+        "_id": "j57c40y9b3pp42p38a59we9pqx7t8v5j",
+        "appId": "kaumono",
+        "createdAt": 1761547330051,
+        "memberIds": [
+          "jh753sm71m0pfs5ckv9pkrn8qx7t9etc"
+        ],
+        "name": "たたあ",
+        "ownerId": "jh753sm71m0pfs5ckv9pkrn8qx7t9etc",
+        "updatedAt": 1761547330051
+      }
+    ],
+    "kaumono_items": [
+      {
+        "_creationTime": 1760920858528.4377,
+        "_id": "j97fasdvh7kymwde1yb1jv1a6x7svs8j",
+        "appId": "kaumono",
+        "categoryId": "j575wyq0fhwrxcrazk9ndvak957stwdw",
+        "createdAt": 1760920858528,
+        "createdBy": "jh755sc99pnpmkhegyw5e54f017sv9f9",
+        "details": "APIテスト用のアイテムです",
+        "done": true,
+        "listId": "jd770cpvws07cmkj4jrj6m0r597std6m",
+        "sortOrder": 0,
+        "title": "iOSテストアイテム",
+        "updatedAt": 1760920988452
+      },
+      {
+        "_creationTime": 1761341127522.9568,
+        "_id": "j978pd2126dfyfj2w69zdsq1xs7t26b0",
+        "appId": "kaumono",
+        "categoryId": "j570t244qxs3rcpmgzrvydejsx7szshb",
+        "createdAt": 1761341127523,
+        "createdBy": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "done": true,
+        "isReminderEnabled": true,
+        "reminderTime": 1761345084000,
+        "sortOrder": 0,
+        "title": "Aaたた",
+        "updatedAt": 1761345818667
+      },
+      {
+        "_creationTime": 1761356141070.068,
+        "_id": "j97fzw06eqpcpf0xrphxfvqsyx7t4t1k",
+        "appId": "kaumono",
+        "categoryId": "j57azrpk4edt8trn8szyhhr7097t54vr",
+        "createdAt": 1761356141073,
+        "createdBy": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "done": false,
+        "isReminderEnabled": true,
+        "reminderTime": 1757055600000,
+        "sortOrder": 0,
+        "title": "寝る",
+        "updatedAt": 1761356141073
+      },
+      {
+        "_creationTime": 1761501033491.3088,
+        "_id": "j975zw0r0v2n52hjjfk2mqe1bd7t6bqx",
+        "appId": "kaumono",
+        "categoryId": "j579p8g2xc7ejheeaevv9tt75h7t78fx",
+        "createdAt": 1761501033495,
+        "createdBy": "jh784144sq7y3gtjbwzr1wb9y17szn49",
+        "done": true,
+        "isReminderEnabled": true,
+        "reminderTime": 1761375600000,
+        "sortOrder": 0,
+        "title": "あああ",
+        "updatedAt": 1761504435086
+      },
+      {
+        "_creationTime": 1761526188955.382,
+        "_id": "j978h3tsc5y5kvb6n9ft0e2zrx7t9mvd",
+        "appId": "kaumono",
+        "categoryId": "j574m6yqvp2kfv44edepzjsczd7t6hwv",
+        "createdAt": 1761526188955,
+        "createdBy": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "done": false,
+        "isReminderEnabled": true,
+        "reminderTime": 1757055600000,
+        "sortOrder": 0,
+        "title": "きゅうり",
+        "updatedAt": 1761526188955
+      },
+      {
+        "_creationTime": 1761526189185.9136,
+        "_id": "j975sgq3jaetwmfrbxqh00dp357t9a77",
+        "appId": "kaumono",
+        "categoryId": "j574m6yqvp2kfv44edepzjsczd7t6hwv",
+        "createdAt": 1761526189186,
+        "createdBy": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "done": false,
+        "isReminderEnabled": true,
+        "reminderTime": 1757055600000,
+        "sortOrder": 1,
+        "title": "きゅうり",
+        "updatedAt": 1761526189186
+      },
+      {
+        "_creationTime": 1761527021473.056,
+        "_id": "j977acheg8esc50kmnzas4eg7x7t8wy5",
+        "appId": "kaumono",
+        "categoryId": "j579p8g2xc7ejheeaevv9tt75h7t78fx",
+        "createdAt": 1761527021476,
+        "createdBy": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "done": false,
+        "isReminderEnabled": true,
+        "reminderTime": 1761375600000,
+        "sortOrder": 1,
+        "title": "ああ",
+        "updatedAt": 1761527021476
+      },
+      {
+        "_creationTime": 1761528003481.3682,
+        "_id": "j97aq2wh8p53sfrhmm7zm4krgx7t8d2f",
+        "appId": "kaumono",
+        "categoryId": "j57azrpk4edt8trn8szyhhr7097t54vr",
+        "createdAt": 1761528003485,
+        "createdBy": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "done": false,
+        "isReminderEnabled": true,
+        "reminderTime": 1757055600000,
+        "sortOrder": 1,
+        "title": "Aa",
+        "updatedAt": 1761528003485
+      },
+      {
+        "_creationTime": 1761546426039.5508,
+        "_id": "j976vkm67kw17y4gszy0hase357t8a0d",
+        "appId": "kaumono",
+        "categoryId": "j570t244qxs3rcpmgzrvydejsx7szshb",
+        "createdAt": 1761546426043,
+        "createdBy": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "done": false,
+        "isReminderEnabled": true,
+        "reminderTime": 1757055600000,
+        "sortOrder": 2,
+        "title": "笑",
+        "updatedAt": 1761546426043
+      }
+    ],
+    "kaumono_users": [
+      {
+        "_creationTime": 1760916829568.113,
+        "_id": "jh73tkg0j6e251r2vswf22dy857srzvk",
+        "appId": "kaumono",
+        "displayName": "Takashi",
+        "email": "tacarz@gmail.com",
+        "externalId": "z8UTlnD3N8ZqgvUdYt0GELGSEwd2"
+      },
+      {
+        "_creationTime": 1760920832081.9058,
+        "_id": "jh755sc99pnpmkhegyw5e54f017sv9f9",
+        "appId": "kaumono",
+        "displayName": "iOSテストユーザー",
+        "email": "test@example.com",
+        "externalId": "test_ios_user_001"
+      },
+      {
+        "_creationTime": 1761135296370.405,
+        "_id": "jh784144sq7y3gtjbwzr1wb9y17szn49",
+        "appId": "kaumono",
+        "displayName": "たか",
+        "email": "tacarchan@gmail.com",
+        "externalId": "MojA5ZOKVohecF82L05RjXvlZcL2"
+      },
+      {
+        "_creationTime": 1761356183349.435,
+        "_id": "jh78me5h6aqxbdhbcb859a634x7t5xbh",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "cJoHhmW6ZmcgqFnf6FlTV2nGLrS2"
+      },
+      {
+        "_creationTime": 1761512763938.6655,
+        "_id": "jh76hdka4r1qjwce0a48h3zc2n7t77sc",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "h0IRonN4L5Wrgk7RjmL7YEI0JZX2"
+      },
+      {
+        "_creationTime": 1761517070344.7527,
+        "_id": "jh78v4ybt3pec100867q2pedh17t6n18",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "x69NxvMeEfPKlm9s5eY4X5mP3P02"
+      },
+      {
+        "_creationTime": 1761521457979.072,
+        "_id": "jh7aqeegr0ep0tcn8x2rbc3d8n7t7dkx",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "NpYUxmfl3hNFvquMsNHWYo1z4Fo2"
+      },
+      {
+        "_creationTime": 1761522502228.002,
+        "_id": "jh7fbytz8g4aejv2yzh06wtq0s7t6vrm",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "qSrwK1lpQFbIRkJMgPUD1v0DCTg2"
+      },
+      {
+        "_creationTime": 1761522798582.3967,
+        "_id": "jh7fbd5n4hwsavjw88kc32jp4x7t6qh7",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "nEGXvfJiRPONKfggBDqx4Vc4GaW2"
+      },
+      {
+        "_creationTime": 1761523422655.5142,
+        "_id": "jh793km02rp2f7n2wc7ac9fzt57t9t9s",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "ezIfpaPxvkV6lH802wYkRWXOxZt2"
+      },
+      {
+        "_creationTime": 1761527573916.6545,
+        "_id": "jh74yt6d0aretr2c573fpkgbzd7t9rj2",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "ZV0UDR9723Wh7Jg5JAkkFKn4sEX2"
+      },
+      {
+        "_creationTime": 1761530886804.0608,
+        "_id": "jh77cbbajq7vdv6p721wk3hnkd7t987j",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "6OZyg1n2qGhKCn2g1u8FO1wJqGw2"
+      },
+      {
+        "_creationTime": 1761545774377.987,
+        "_id": "jh7ed546nww3j4vmk00rmdncax7t9p66",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "cd2Gtcy6uMMaEhbGgJvCR5zJEe43"
+      },
+      {
+        "_creationTime": 1761545907494.4482,
+        "_id": "jh72brxr9jt77101cnsf270tk97t89d1",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "G0BIrlrdPJVmRfYUwv40mBDzW883"
+      },
+      {
+        "_creationTime": 1761547327511.199,
+        "_id": "jh753sm71m0pfs5ckv9pkrn8qx7t9etc",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "p5SnapjM4KTw90qYeHknXHAxwwm2"
+      },
+      {
+        "_creationTime": 1762131151789.1897,
+        "_id": "jh78r516858n5wt4cefxdcw8v17tqa7w",
+        "appId": "kaumono",
+        "displayName": "ユーザー",
+        "email": "",
+        "externalId": "2TUmR10yVebKl8q7cnzPCViTYED3"
+      }
+    ]
+  }
+}

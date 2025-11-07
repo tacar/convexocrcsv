@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>プロダクト名 — シンプルLP</title>
+    <meta
+      name="description"
+      content="一言キャッチコピー。最小構成のLPテンプレ。"
+    />
+    <meta property="og:title" content="プロダクト名 — シンプルLP" />
+    <meta
+      property="og:description"
+      content="一言キャッチコピー。最小構成のLPテンプレ。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/hero.png" />
+    <link rel="icon" href="/favicon.ico" />
+    <!-- Tailwind CDN: 開発用に手早く -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              jp: [
+                "ui-sans-serif",
+                "system-ui",
+                "Segoe UI",
+                "Hiragino Kaku Gothic ProN",
+                "BIZ UDGothic",
+                "Meiryo",
+                "sans-serif",
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-jp bg-white text-gray-900 antialiased">
+    <!-- 全体ラッパ -->
+    <main class="min-h-screen flex items-center">
+      <div class="mx-auto w-full max-w-5xl px-6">
+        <!-- ヘッダー（ロゴだけ） -->
+        <header class="py-6">
+          <a href="/" class="inline-flex items-center gap-3">
+            <!-- ロゴ画像差し替え -->
+            <img src="/logo.svg" alt="プロダクトロゴ" class="h-9 w-auto" />
+            <span class="sr-only">プロダクト名</span>
+          </a>
+        </header>
+
+        <!-- ヒーロー：ロゴ・テキスト・イメージ（1枚） -->
+        <section class="grid items-center gap-10 md:grid-cols-2 md:gap-12">
+          <!-- テキスト -->
+          <div class="space-y-6">
+            <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
+              あなたのアイデアを<span class="bg-yellow-200 px-2"
+                >一瞬で形に</span
+              >
+            </h1>
+            <p class="text-base leading-7 text-gray-600">
+              ここに1〜2文の説明。強みを端的に。例：軽量・高速・かんたん操作。画像は1枚で十分。
+            </p>
+
+            <!-- 必要ならCTA（削ってもOK） -->
+            <div class="flex flex-wrap gap-3">
+              <a
+                href="#download"
+                class="inline-flex items-center justify-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"
+              >
+                使ってみる
+              </a>
+              <a
+                href="#more"
+                class="inline-flex items-center justify-center rounded-lg bg-black px-4 py-2 text-sm font-medium text-white hover:opacity-90"
+              >
+                詳細を見る
+              </a>
+            </div>
+          </div>
+
+          <!-- イメージ1枚 -->
+          <div class="relative">
+            <!-- 画像差し替え: /hero.png -->
+            <img
+              src="/hero.png"
+              alt="アプリイメージ"
+              class="w-full rounded-2xl border border-gray-200 shadow-sm"
+            />
+            <!-- 小さなキャプション（任意） -->
+            <figcaption class="mt-3 text-center text-sm text-gray-500">
+              * 実際の画面とは異なる場合があります
+            </figcaption>
+          </div>
+        </section>
+
+        <!-- フッター（最小） -->
+        <footer class="py-12">
+          <div
+            class="flex items-center justify-between border-t border-gray-200 pt-6 text-xs text-gray-500"
+          >
+            <span>© <span id="y"></span> プロダクト名</span>
+            <nav class="flex gap-4">
+              <a href="#" class="hover:underline">利用規約</a>
+              <a href="#" class="hover:underline">プライバシー</a>
+              <a href="#" class="hover:underline">お問い合わせ</a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+    </main>
+
+    <script>
+      // 年表示だけ自動
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

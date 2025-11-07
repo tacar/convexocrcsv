@@ -1,0 +1,316 @@
+import { v } from "convex/values";
+import { mutation, query } from "./_generated/server";
+import { Id } from "./_generated/dataModel";
+
+// すべての公開済み記事を取得
+export const listPublished = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("posts")
+      .withIndex("by_published", (q) => q.eq("published", true))
+      .order("desc")
+      .collect();
+  },
+});
+
+// すべての記事を取得（管理者用）
+export const list = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("posts")
+      .order("desc")
+      .collect();
+  },
+});
+
+// 記事をIDで取得
+export const get = query({
+  args: { id: v.id("posts") },
+  handler: async (ctx, args) => {
+    const post = await ctx.db.get(args.id);
+    
+    console.log("get called for id:", args.id);
+    console.log("Post found:", post ? "Yes" : "No");
+    if (post) {
+      console.log("Post images count:", post.images ? post.images.length : "undefined");
+      console.log("Post images data:", post.images);
+    }
+    
+    return post;
+  },
+});
+
+// 記事をスラッグで取得
+export const getBySlug = query({
+  args: { slug: v.string() },
+  handler: async (ctx, args) => {
+    const post = await ctx.db
+      .query("posts")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .first();
+    
+    console.log("getBySlug called for slug:", args.slug);
+    console.log("Post found:", post ? "Yes" : "No");
+    if (post) {
+      console.log("Post images count:", post.images ? post.images.length : "undefined");
+      console.log("Post images data:", post.images);
+    }
+    
+    return post;
+  },
+});
+
+// 記事を作成（画像対応版）
+export const create = mutation({
+  args: {
+    title: v.string(),
+    slug: v.optional(v.string()),
+    content: v.string(),
+    authorEmail: v.string(),
+    imageId: v.optional(v.id("_storage")),
+    images: v.optional(v.array(v.object({
+      id: v.id("_storage"),
+      url: v.string(),
+      caption: v.string(),
+    }))),
+    published: v.boolean(),
+  },
+  handler: async (ctx, args) => {
+    // ユーザーを検索または作成
+    let user = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", args.authorEmail))
+      .first();
+    
+    if (!user) {
+      const now = Date.now();
+      const userId = await ctx.db.insert("users", {
+        email: args.authorEmail,
+        name: args.authorEmail.split("@")[0],
+        createdAt: now,
+        updatedAt: now,
+      });
+      user = await ctx.db.get(userId);
+    }
+    
+    // 画像URLを取得
+    let imageUrl = undefined;
+    if (args.imageId) {
+      imageUrl = await ctx.storage.getUrl(args.imageId);
+    }
+    
+    // 複数画像のURLを生成
+    let processedImages = undefined;
+    if (args.images && args.images.length > 0) {
+      processedImages = await Promise.all(
+        args.images.map(async (img) => ({
+          id: img.id,
+          url: await ctx.storage.getUrl(img.id) || img.url,
+          caption: img.caption,
+        }))
+      );
+    }
+    
+    // スラッグを生成（渡されていない場合）
+    let finalSlug = args.slug;
+    if (!finalSlug) {
+      finalSlug = args.title
+        .toLowerCase()
+        .replace(/[^\w\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '')
+        .substring(0, 50) || `post-${Date.now()}`;
+    }
+    
+    const now = Date.now();
+    const postId = await ctx.db.insert("posts", {
+      title: args.title,
+      slug: finalSlug,
+      content: args.content,
+      authorId: user!._id,
+      imageId: args.imageId,
+      imageUrl: imageUrl || undefined,
+      images: processedImages || args.images,
+      published: args.published,
+      createdAt: now,
+      updatedAt: now,
+    });
+    return postId;
+  },
+});
+
+// 記事を更新
+export const update = mutation({
+  args: {
+    id: v.id("posts"),
+    title: v.optional(v.string()),
+    slug: v.optional(v.string()),
+    content: v.optional(v.string()),
+    imageId: v.optional(v.id("_storage")),
+    images: v.optional(v.array(v.object({
+      id: v.id("_storage"),
+      url: v.string(),
+      caption: v.string(),
+    }))),
+    published: v.optional(v.boolean()),
+  },
+  handler: async (ctx, args) => {
+    const { id, imageId, images, ...updates } = args;
+    
+    console.log("Update mutation called with id:", id);
+    console.log("Received images array:", images);
+    console.log("Images array length:", images ? images.length : "undefined");
+    
+    // 画像URLを取得（imageIdが提供された場合）
+    let imageUrl = undefined;
+    if (imageId) {
+      imageUrl = await ctx.storage.getUrl(imageId);
+    }
+    
+    // 複数画像のURLを生成
+    let processedImages: any = undefined;
+    if (images !== undefined) {
+      console.log("Processing images array...");
+      if (images.length > 0) {
+        processedImages = await Promise.all(
+          images.map(async (img) => ({
+            id: img.id,
+            url: await ctx.storage.getUrl(img.id) || img.url,
+            caption: img.caption,
+          }))
+        );
+        console.log("Processed images:", processedImages);
+      } else {
+        processedImages = []; // 空配列を明示的に設定
+        console.log("Setting empty images array");
+      }
+    } else {
+      console.log("Images array is undefined, skipping image update");
+    }
+    
+    // 基本の更新データを作成
+    let patchData: any = {
+      ...updates,
+      ...(processedImages !== undefined && { images: processedImages }),
+      updatedAt: Date.now(),
+    };
+    
+    // 画像関連の更新がある場合
+    if (processedImages !== undefined) {
+      if (imageId) {
+        // 画像がある場合
+        patchData.imageId = imageId;
+        patchData.imageUrl = imageUrl;
+      } else {
+        // 画像がない場合は削除（undefinedで削除）
+        patchData.imageId = undefined;
+        patchData.imageUrl = undefined;
+      }
+    }
+    
+    console.log("Patching post with data:", patchData);
+    
+    await ctx.db.patch(id, patchData);
+    
+    console.log("Post successfully updated");
+  },
+});
+
+// 記事を削除
+export const remove = mutation({
+  args: { id: v.id("posts") },
+  handler: async (ctx, args) => {
+    // 関連するpostCategoriesも削除
+    const relations = await ctx.db
+      .query("postCategories")
+      .withIndex("by_post", (q) => q.eq("postId", args.id))
+      .collect();
+    
+    for (const relation of relations) {
+      await ctx.db.delete(relation._id);
+    }
+    
+    await ctx.db.delete(args.id);
+  },
+});
+
+// 記事の公開状態を切り替える
+export const togglePublished = mutation({
+  args: { id: v.id("posts") },
+  handler: async (ctx, args) => {
+    console.log("togglePublished called with id:", args.id);
+    
+    const post = await ctx.db.get(args.id);
+    if (!post) {
+      console.log("Post not found for id:", args.id);
+      throw new Error("記事が見つかりません");
+    }
+    
+    console.log("Current post published state:", post.published);
+    const newPublishedState = !post.published;
+    console.log("New published state will be:", newPublishedState);
+    
+    try {
+      await ctx.db.patch(args.id, {
+        published: newPublishedState,
+        updatedAt: Date.now(),
+      });
+      console.log("Successfully updated post published state");
+      return newPublishedState;
+    } catch (error) {
+      console.error("Error updating post:", error);
+      throw new Error("記事の更新に失敗しました");
+    }
+  },
+});
+
+// 既存記事にスラッグを追加するためのミューテーション
+export const addSlugToExistingPosts = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const posts = await ctx.db.query("posts").collect();
+    
+    for (const post of posts) {
+      // slugフィールドが存在しない場合のみ処理
+      if (!post.slug) {
+        // タイトルからスラッグを生成
+        let slug = post.title
+          .toLowerCase()
+          .replace(/[^\w\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '');
+        
+        if (!slug || slug.length === 0) {
+          slug = `post-${post._id}`;
+        } else {
+          slug = slug.substring(0, 50);
+        }
+        
+        // スラッグの重複チェック
+        let uniqueSlug = slug;
+        let counter = 1;
+        while (true) {
+          const existingPost = await ctx.db
+            .query("posts")
+            .withIndex("by_slug", (q) => q.eq("slug", uniqueSlug))
+            .first();
+          
+          if (!existingPost || existingPost._id === post._id) {
+            break;
+          }
+          
+          uniqueSlug = `${slug}-${counter}`;
+          counter++;
+        }
+        
+        // 記事を更新
+        await ctx.db.patch(post._id, {
+          slug: uniqueSlug,
+          updatedAt: Date.now(),
+        });
+      }
+    }
+  },
+});

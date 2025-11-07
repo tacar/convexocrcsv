@@ -1,0 +1,2 @@
+// HTTP Actions を無効化
+// Convex標準のFunctions API (/api/query, /api/mutation) を使用

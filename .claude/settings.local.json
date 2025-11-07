@@ -1,0 +1,94 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(grep:*)",
+      "Bash(npx update-browserslist-db:*)",
+      "Bash(npm run build:*)",
+      "Bash(rg:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run dev:*)",
+      "Bash(node:*)",
+      "Bash(lsof:*)",
+      "Bash(pkill:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(gh issue view:*)",
+      "Bash(git add:*)",
+      "Bash(gh issue comment:*)",
+      "Bash(find:*)",
+      "Bash(gh pr comment:*)",
+      "Bash(gh pr view:*)",
+      "Bash(sed:*)",
+      "Bash(ls:*)",
+      "Bash(for lang in zh-Hans zh-Hant ko es fr de it pt-BR ru id ar ca hr cs da nl fi el he hi hu ms no pl pt-PT ro sk sv th tr uk vi)",
+      "Bash(do mkdir -p \"$lang.lproj\")",
+      "Bash(done)",
+      "Bash(do cp:*)",
+      "Bash(cp:*)",
+      "Bash(swift build)",
+      "Bash(timeout 60 xcodebuild:*)",
+      "Bash(mkdir:*)",
+      "Bash(python3:*)",
+      "Bash(diff:*)",
+      "Bash(fastlane:*)",
+      "Bash(mv:*)",
+      "Bash(true)",
+      "Bash(chmod:*)",
+      "Bash(./upload_metadata_185.sh)",
+      "Bash(xcrun devicectl list:*)",
+      "Bash(plutil:*)",
+      "Bash(xattr:*)",
+      "Bash(swift:*)",
+      "Bash(afconvert:*)",
+      "mcp__serena__list_dir",
+      "Bash(npm create:*)"
+    ],
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(rm:*)",
+      "Bash(rm -rf:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(git reset:*)",
+      "Bash(git rebase:*)",
+      "Read(.env.*)",
+      "Read(id_rsa)",
+      "Read(id_ed25519)",
+      "Read(**/*token*)",
+      "Read(**/*key*)",
+      "Write(.env*)",
+      "Write(**/secrets/**)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(nc:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm remove:*)",
+      "Bash(psql:*)",
+      "Bash(mysql:*)",
+      "Bash(mongod:*)",
+      "mcp__supabase__execute_sql"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"タスクが完了しました。\" with title \"Claude Code\"'"
+          },
+          {
+            "type": "command",
+            "command": "printf '処理完了時刻: %s\n' \"$(date '+%Y年%m月%d日 (%a) %H:%M')\""
+          },
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Purr.aiff"
+          }
+        ]
+      }
+    ]
+  }
+}

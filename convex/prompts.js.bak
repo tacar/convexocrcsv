@@ -1,0 +1,152 @@
+const { v } = require("convex/values");
+const { mutation, query } = require("./_generated/server");
+
+// デフォルトのプロンプト
+const defaultPrompts = {
+  prompt1: {
+    name: "プロンプト1",
+    prompt: "以下のテキストを、読みやすく整理された記事に変換してください。見出しを適切に配置し、段落を整え、読者にとって分かりやすい構成にしてください。",
+    description: "テキストを整理された記事形式に変換"
+  },
+  prompt2: {
+    name: "プロンプト2",
+    prompt: "以下のテキストを、魅力的なブログ記事に変換してください。読者の興味を引くような導入文を追加し、結論も含めて構成してください。",
+    description: "ブログ記事形式に変換"
+  },
+  prompt3: {
+    name: "プロンプト3",
+    prompt: "以下のテキストを、要点をまとめた簡潔な記事に変換してください。重要なポイントを箇条書きで整理し、簡潔にまとめてください。",
+    description: "要約記事形式に変換"
+  }
+};
+
+// プロンプトを取得
+module.exports. getPrompt = query({
+  args: { name: v.string() },
+  handler: async (ctx, args) => {
+    const prompt = await ctx.db
+      .query("prompts")
+      .withIndex("by_name", (q) => q.eq("name", args.name))
+      .first();
+
+    // プロンプトが存在しない場合はデフォルトを返す
+    if (!prompt) {
+      const defaultPrompt = defaultPrompts[args.name as keyof typeof defaultPrompts];
+      if (defaultPrompt) {
+        return {
+          name: args.name,
+          prompt: defaultPrompt.prompt,
+          description: defaultPrompt.description,
+        };
+      }
+    }
+
+    return prompt;
+  },
+});
+
+// すべてのプロンプトを取得
+module.exports. getAllPrompts = query({
+  handler: async (ctx) => {
+    const prompts = await ctx.db.query("prompts").collect();
+    
+    // データベースに保存されていないデフォルトプロンプトも含める
+    const allPromptNames = ["prompt1", "prompt2", "prompt3"];
+    const result = [];
+
+    for (const name of allPromptNames) {
+      const dbPrompt = prompts.find(p => p.name === name);
+      if (dbPrompt) {
+        result.push(dbPrompt);
+      } else {
+        const defaultPrompt = defaultPrompts[name as keyof typeof defaultPrompts];
+        if (defaultPrompt) {
+          result.push({
+            name,
+            prompt: defaultPrompt.prompt,
+            description: defaultPrompt.description,
+            updatedAt: Date.now(),
+          });
+        }
+      }
+    }
+
+    return result;
+  },
+});
+
+// プロンプトを更新
+module.exports. updatePrompt = mutation({
+  args: {
+    name: v.string(),
+    prompt: v.string(),
+    description: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("prompts")
+      .withIndex("by_name", (q) => q.eq("name", args.name))
+      .first();
+
+    if (existing) {
+      // 既存のプロンプトを更新
+      await ctx.db.patch(existing._id, {
+        prompt: args.prompt,
+        description: args.description,
+        updatedAt: Date.now(),
+      });
+    } else {
+      // 新規作成
+      await ctx.db.insert("prompts", {
+        name: args.name,
+        prompt: args.prompt,
+        description: args.description,
+        updatedAt: Date.now(),
+      });
+    }
+  },
+});
+
+// 生成された記事を保存
+module.exports. saveGeneratedArticle = mutation({
+  args: {
+    originalText: v.string(),
+    promptType: v.string(),
+    generatedContent: v.string(),
+    userId: v.optional(v.id("users")),
+    userEmail: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const articleId = await ctx.db.insert("generatedArticles", {
+      originalText: args.originalText,
+      promptType: args.promptType,
+      generatedContent: args.generatedContent,
+      userId: args.userId,
+      userEmail: args.userEmail,
+      createdAt: Date.now(),
+    });
+    return articleId;
+  },
+});
+
+// ユーザーの生成記事履歴を取得
+module.exports. getUserGeneratedArticles = query({
+  args: {
+    userEmail: v.optional(v.string()),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    if (!args.userEmail) return [];
+
+    let query = ctx.db
+      .query("generatedArticles")
+      .withIndex("by_email", (q) => q.eq("userEmail", args.userEmail))
+      .order("desc");
+
+    if (args.limit) {
+      query = query.take(args.limit);
+    }
+
+    return await query.collect();
+  },
+});
