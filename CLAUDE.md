@@ -30,6 +30,9 @@ Authentication
 tacarz.workers.dev
 mylastwork.net
 
+https://ocrcsv.tacarz.workers.dev/
+
+
 
 仕様
 現在の構成のまま
@@ -55,6 +58,11 @@ curl -s "https://ait.tacarz.workers.dev/image" \
 prompt_
 kaumono_
 のテーブルは削除
+
+画像はR2に保存
+
+ocrから出力したデータをtableに保存
+あとでcsvになるように
 
 
 
