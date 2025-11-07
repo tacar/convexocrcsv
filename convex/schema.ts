@@ -34,6 +34,7 @@ export default defineSchema({
     appId: v.string(),
     categoryId: v.id("ocrcsv_categories"),
     fileName: v.string(),
+    imageUrl: v.optional(v.string()),
     imageStorageId: v.optional(v.id("_storage")),
     ocrResult: v.string(),
     mimeType: v.string(),
@@ -41,6 +42,17 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.optional(v.number()),
     sortOrder: v.optional(v.number()),
+    // CSV出力用の列データ（OCR結果を改行で分割した各行）
+    column1: v.optional(v.string()),
+    column2: v.optional(v.string()),
+    column3: v.optional(v.string()),
+    column4: v.optional(v.string()),
+    column5: v.optional(v.string()),
+    column6: v.optional(v.string()),
+    column7: v.optional(v.string()),
+    column8: v.optional(v.string()),
+    column9: v.optional(v.string()),
+    column10: v.optional(v.string()),
   })
     .index("by_category", ["categoryId"])
     .index("by_app_and_category", ["appId", "categoryId"])

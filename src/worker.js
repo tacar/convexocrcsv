@@ -177,17 +177,17 @@ async function handleImageUpload(request) {
     const filename = `${timestamp}-${randomStr}.${extension}`;
 
     console.log('[Worker] Uploading to R2:', filename);
-    console.log('[Worker] R2 binding available:', typeof PROMPT_IMAGES !== 'undefined');
+    console.log('[Worker] R2 binding available:', typeof OCRCSV_IMAGES !== 'undefined');
 
     // Upload to R2 using global binding
-    await PROMPT_IMAGES.put(filename, file.stream(), {
+    await OCRCSV_IMAGES.put(filename, file.stream(), {
       httpMetadata: {
         contentType: file.type,
       },
     });
 
     // Generate Worker-based URL (no DNS configuration needed)
-    const imageUrl = `https://prompt.tacarz.workers.dev/images/${filename}`;
+    const imageUrl = `https://ocrcsv.tacarz.workers.dev/images/${filename}`;
 
     console.log('[Worker] Image uploaded successfully:', { filename, imageUrl });
 
@@ -234,7 +234,7 @@ async function handleImageGet(url) {
     }
 
     // Retrieve image from R2
-    const object = await PROMPT_IMAGES.get(filename);
+    const object = await OCRCSV_IMAGES.get(filename);
 
     if (!object) {
       console.error('[Worker] Image not found:', filename);

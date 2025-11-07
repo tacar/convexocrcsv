@@ -5,7 +5,7 @@ interface OCRResultCardProps {
   image: {
     _id: string;
     fileName: string;
-    imageUrl: string | null;
+    imageUrl: string | null | undefined;
     ocrResult: string;
     createdAt: number;
   };

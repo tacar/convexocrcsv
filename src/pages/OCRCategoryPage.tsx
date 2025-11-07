@@ -4,7 +4,7 @@ import { useOCRAuth } from '../contexts/OCRAuthContext';
 import { useNotification } from '../contexts/NotificationContext';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Download } from 'lucide-react';
 import { Id } from '../../convex/_generated/dataModel';
 import { ImageUploadZone } from '../components/ImageUploadZone';
 import { OCRResultCard } from '../components/OCRResultCard';
@@ -20,7 +20,6 @@ export const OCRCategoryPage: React.FC = () => {
     api.ocrcsvImages.getByCategoryId,
     categoryId ? { categoryId: categoryId as Id<'ocrcsv_categories'> } : 'skip'
   );
-  const generateUploadUrl = useMutation(api.ocrcsvImages.generateUploadUrl);
   const createImage = useMutation(api.ocrcsvImages.create);
   const deleteImage = useMutation(api.ocrcsvImages.remove);
 
@@ -36,28 +35,39 @@ export const OCRCategoryPage: React.FC = () => {
       // 2. OCR APIを呼び出し
       const ocrResult = await callOCRAPI(base64, file.type);
 
-      // 3. Convex Storageにアップロード
-      const uploadUrl = await generateUploadUrl();
-      const uploadResult = await fetch(uploadUrl, {
+      // 3. R2にアップロード（Workers経由）
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const uploadResult = await fetch('/api/upload', {
         method: 'POST',
-        headers: { 'Content-Type': file.type },
-        body: file,
+        body: formData,
       });
 
       if (!uploadResult.ok) {
         throw new Error('画像のアップロードに失敗しました');
       }
 
-      const { storageId } = await uploadResult.json();
+      const { url: imageUrl } = await uploadResult.json();
 
-      // 4. DBに保存
+      // 4. OCR結果を改行で分割して10列のデータに変換
+      const lines = ocrResult.split('\n').filter(line => line.trim() !== '');
+      const columnData: Record<string, string | undefined> = {};
+      for (let i = 0; i < 10; i++) {
+        if (i < lines.length) {
+          columnData[`column${i + 1}`] = lines[i].trim();
+        }
+      }
+
+      // 5. DBに保存
       await createImage({
         categoryId: categoryId as Id<'ocrcsv_categories'>,
         fileName: file.name,
-        imageStorageId: storageId,
+        imageUrl,
         ocrResult,
         mimeType: file.type,
         userId,
+        ...columnData,
       });
 
       showSuccess('画像をアップロードしました', 'OCR処理が完了しました');
@@ -87,6 +97,49 @@ export const OCRCategoryPage: React.FC = () => {
     showSuccess('コピーしました', 'クリップボードにコピーしました');
   };
 
+  const handleExportCSV = () => {
+    if (!images || images.length === 0) {
+      showError('エクスポートできません', '画像がありません');
+      return;
+    }
+
+    // CSVヘッダー
+    const headers = ['ファイル名', '列1', '列2', '列3', '列4', '列5', '列6', '列7', '列8', '列9', '列10'];
+
+    // CSVデータ行
+    const rows = images.map(image => [
+      image.fileName,
+      image.column1 || '',
+      image.column2 || '',
+      image.column3 || '',
+      image.column4 || '',
+      image.column5 || '',
+      image.column6 || '',
+      image.column7 || '',
+      image.column8 || '',
+      image.column9 || '',
+      image.column10 || '',
+    ]);
+
+    // CSV文字列を生成
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+
+    // BOMを追加してExcelで正しく開けるようにする
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `ocr_data_${Date.now()}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+
+    showSuccess('CSVをエクスポートしました', '');
+  };
+
   if (!userId || !categoryId) {
     return <div>Loading...</div>;
   }
@@ -95,17 +148,27 @@ export const OCRCategoryPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate('/')}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">画像管理</h1>
-              <p className="text-sm text-gray-500 mt-1">画像をアップロードしてOCR処理</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => navigate('/')}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <ArrowLeft size={20} />
+              </button>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">画像管理</h1>
+                <p className="text-sm text-gray-500 mt-1">画像をアップロードしてOCR処理</p>
+              </div>
             </div>
+            <button
+              onClick={handleExportCSV}
+              disabled={!images || images.length === 0}
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+            >
+              <Download size={18} />
+              CSVエクスポート
+            </button>
           </div>
         </div>
       </header>
