@@ -19,7 +19,12 @@ export const getOrCreateUser = mutation({
       .first();
 
     if (existing) {
-      return { userId: existing._id };
+      // 既存ユーザーの場合、保存されているdisplayNameを返す
+      return {
+        userId: existing._id,
+        displayName: existing.displayName,
+        email: existing.email,
+      };
     }
 
     // 新規ユーザー作成
@@ -31,7 +36,11 @@ export const getOrCreateUser = mutation({
       createdAt: Date.now(),
     });
 
-    return { userId };
+    return {
+      userId,
+      displayName: args.displayName,
+      email: args.email,
+    };
   },
 });
 
