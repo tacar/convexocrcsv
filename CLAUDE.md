@@ -52,6 +52,12 @@ curl -s "https://ait.tacarz.workers.dev/image" \
 データ、tableは以前のものを残す。
 変更削除はしない。追加で作成
 
+prompt_
+kaumono_
+のテーブルは削除
+
+
+
 googleログイン
 設定は.env
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useOCRAuth } from '../contexts/OCRAuthContext';
 import { Navigate } from 'react-router-dom';
 
 export const LoginPage: React.FC = () => {
-  const { user, signInWithGoogle, signInAnonymously, loading } = useAuth();
+  const { user, signInWithGoogle, signInAnonymously, loading } = useOCRAuth();
 
   if (loading) {
     return (
