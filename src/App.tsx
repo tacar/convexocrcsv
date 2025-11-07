@@ -1,19 +1,16 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
 import { ConvexProvider, ConvexReactClient } from 'convex/react';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { OCRAuthProvider, useOCRAuth } from './contexts/OCRAuthContext';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { LoginPage } from './pages/LoginPage';
-import { DashboardPage } from './pages/DashboardPage';
-import { ListPage } from './pages/ListPage';
-import { SharedListPage } from './pages/SharedListPage';
-import { InvitePage } from './pages/InvitePage';
-import { AdminPage } from './pages/AdminPage';
+import { OCRDashboardPage } from './pages/OCRDashboardPage';
+import { OCRCategoryPage } from './pages/OCRCategoryPage';
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
 
-const PrivateRoute: React.FC = () => {
-  const { user, loading } = useAuth();
+const OCRPrivateRoute: React.FC = () => {
+  const { user, loading } = useOCRAuth();
 
   if (loading) {
     return (
@@ -32,28 +29,16 @@ const router = createBrowserRouter([
     element: <LoginPage />
   },
   {
-    path: "/invite/:token",
-    element: <InvitePage />
-  },
-  {
     path: "/",
-    element: <PrivateRoute />,
+    element: <OCRPrivateRoute />,
     children: [
       {
         index: true,
-        element: <DashboardPage />
+        element: <OCRDashboardPage />
       },
       {
-        path: "list/:listId",
-        element: <ListPage />
-      },
-      {
-        path: "shared",
-        element: <SharedListPage />
-      },
-      {
-        path: "admin",
-        element: <AdminPage />
+        path: "category/:categoryId",
+        element: <OCRCategoryPage />
       }
     ]
   }
@@ -62,11 +47,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ConvexProvider client={convex}>
-      <AuthProvider>
+      <OCRAuthProvider>
         <NotificationProvider>
           <RouterProvider router={router} />
         </NotificationProvider>
-      </AuthProvider>
+      </OCRAuthProvider>
     </ConvexProvider>
   );
 }

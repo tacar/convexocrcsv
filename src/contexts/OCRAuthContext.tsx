@@ -5,9 +5,9 @@ import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { Id } from '../../convex/_generated/dataModel';
 
-interface AuthContextType {
+interface OCRAuthContextType {
   user: User | null;
-  userId: Id<'prompt_users'> | null;
+  userId: Id<'ocrcsv_users'> | null;
   loading: boolean;
   isAnonymous: boolean;
   signInWithGoogle: () => Promise<void>;
@@ -16,24 +16,24 @@ interface AuthContextType {
   logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const OCRAuthContext = createContext<OCRAuthContextType | undefined>(undefined);
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
+export const useOCRAuth = () => {
+  const context = useContext(OCRAuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
+    throw new Error('useOCRAuth must be used within OCRAuthProvider');
   }
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const OCRAuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [userId, setUserId] = useState<Id<'prompt_users'> | null>(null);
+  const [userId, setUserId] = useState<Id<'ocrcsv_users'> | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const getOrCreateUser = useMutation(api.promptUsers.getOrCreateUser);
+  const getOrCreateUser = useMutation(api.ocrcsvUsers.getOrCreateUser);
   const getUserByExternalId = useQuery(
-    api.promptUsers.getUserByExternalId,
+    api.ocrcsvUsers.getUserByExternalId,
     user ? { externalId: user.uid } : 'skip'
   );
 
@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const syncUser = async () => {
-      console.log('===== AuthContext syncUser =====');
+      console.log('===== OCRAuthContext syncUser =====');
       console.log('user:', user);
       console.log('getUserByExternalId:', getUserByExternalId);
 
@@ -124,7 +124,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider
+    <OCRAuthContext.Provider
       value={{
         user,
         userId,
@@ -137,6 +137,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </OCRAuthContext.Provider>
   );
 };

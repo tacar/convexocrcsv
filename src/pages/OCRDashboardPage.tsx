@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useOCRAuth } from '../contexts/OCRAuthContext';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
-import { Plus, LogOut, Users, Trash2, Edit2, User, List, Globe, Shield } from 'lucide-react';
+import { Plus, LogOut, Trash2, Edit2, User, Image as ImageIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-export const DashboardPage: React.FC = () => {
-  const { user, userId, isAnonymous, linkAnonymousWithGoogle, logout } = useAuth();
+export const OCRDashboardPage: React.FC = () => {
+  const { user, userId, isAnonymous, linkAnonymousWithGoogle, logout } = useOCRAuth();
   const navigate = useNavigate();
   const [newCategoryName, setNewCategoryName] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
 
-  const categories = useQuery(api.promptCategories.getByUser, userId ? { userId } : 'skip');
-  const createCategory = useMutation(api.promptCategories.create);
-  const updateCategory = useMutation(api.promptCategories.update);
-  const deleteCategory = useMutation(api.promptCategories.remove);
+  const categories = useQuery(api.ocrcsvCategories.getByUser, userId ? { userId } : 'skip');
+  const createCategory = useMutation(api.ocrcsvCategories.create);
+  const updateCategory = useMutation(api.ocrcsvCategories.update);
+  const deleteCategory = useMutation(api.ocrcsvCategories.remove);
 
   const handleCreateCategory = async () => {
     if (!newCategoryName.trim() || !userId) return;
@@ -34,7 +34,7 @@ export const DashboardPage: React.FC = () => {
 
   const handleDeleteCategory = async (id: any) => {
     if (!userId) return;
-    if (confirm('カテゴリと関連するすべてのデータが削除されます。よろしいですか？')) {
+    if (confirm('カテゴリと関連するすべての画像が削除されます。よろしいですか？')) {
       await deleteCategory({ id, userId });
     }
   };
@@ -60,28 +60,12 @@ export const DashboardPage: React.FC = () => {
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <List size={24} />
-                TODOリスト
+                <ImageIcon size={24} />
+                OCR CSV
               </h1>
-              <p className="text-sm text-gray-500 mt-1">共有可能なTODOを管理</p>
+              <p className="text-sm text-gray-500 mt-1">画像から文字を抽出・管理</p>
             </div>
             <div className="flex items-center gap-3">
-              <button
-                onClick={() => navigate('/shared')}
-                className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded text-sm hover:bg-green-700"
-              >
-                <Globe size={14} />
-                みんなのリスト
-              </button>
-              {user?.email === 'tacarz@gmail.com' && (
-                <button
-                  onClick={() => navigate('/admin')}
-                  className="flex items-center gap-2 px-3 py-2 bg-purple-600 text-white rounded text-sm hover:bg-purple-700"
-                >
-                  <Shield size={14} />
-                  管理画面
-                </button>
-              )}
               <div className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded">
                 <User size={14} />
                 <span>{user?.displayName || user?.email}</span>
@@ -159,22 +143,12 @@ export const DashboardPage: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div
                       className="flex-1 cursor-pointer"
-                      onClick={() => navigate(`/list/${category._id}`)}
+                      onClick={() => navigate(`/category/${category._id}`)}
                     >
                       <h3 className="text-lg font-bold text-gray-900 hover:text-blue-600">
                         {category.name}
                       </h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <div className="flex items-center text-xs text-gray-500">
-                          <Users size={12} className="mr-1" />
-                          {category.memberIds.length}人
-                        </div>
-                        {category.ownerId === userId && (
-                          <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">
-                            オーナー
-                          </span>
-                        )}
-                      </div>
+                      <p className="text-xs text-gray-500 mt-1">クリックして画像を管理</p>
                     </div>
                     <div className="flex gap-1">
                       <button
@@ -186,14 +160,12 @@ export const DashboardPage: React.FC = () => {
                       >
                         <Edit2 size={16} />
                       </button>
-                      {category.ownerId === userId && (
-                        <button
-                          onClick={() => handleDeleteCategory(category._id)}
-                          className="p-2 text-gray-400 hover:text-red-600"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      )}
+                      <button
+                        onClick={() => handleDeleteCategory(category._id)}
+                        className="p-2 text-gray-400 hover:text-red-600"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                   </div>
                 </div>

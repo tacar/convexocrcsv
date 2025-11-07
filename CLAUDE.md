@@ -13,53 +13,66 @@ TailwindCSS
 基本機能を作って
 buildエラーをチェックすること
 
-仕様
+チェックリスト
 
-現在のアプリのまま
-下記を読んでpromptに変更する。
+Firebase
+API Web DB側
+データ形式
+convexの設定
+.env
+全ての設定ファイル
+テーブルの頭につける文字
+
+Firebaseのコンソールで次をチェック
+Authentication
+設定
+承認済みドメイン
+tacarz.workers.dev
+mylastwork.net
+
+
+仕様
+現在の構成のまま
+
+ログイン後
+カテゴリを作成
+
+画像を読み込み
+ドラッグまたはクリックでアップロード
+内容をtableに保存
+
+利用するAPIは次の通り
+
+curl -s "https://ait.tacarz.workers.dev/image" \
+  -H "Content-Type: application/json" \
+  -d '{"image": "<base64_encoded_image>", "mimeType":
+"image/jpeg"}'
+
 
 データ、tableは以前のものを残す。
-追加で作成
+変更削除はしない。追加で作成
 
 googleログイン
-
 設定は.env
-
-google
 
 デプロイ先
 cloudflare workers
-prompt
+ocrcsv
 
 DB
 convex
-project名app
+project名ocrcsv
 
 convexの設定
 npx convex dev
-https://conprompt.mylastwork.net/
+https://conocrcsv.mylastwork.net/
 
 react routerを使え
 
-convex
-Project Name
-app
-Project Slug
-app-d0e95
-
-同じDBを利用
-
-今回のアプリはprompt
-prompt用のテーブルを作成
-テーブル名の前にprompt_を作る
+今回のアプリはocrcsv
+テーブル名の前にocrcsv_を作る
 
 各テーブルにappidをつける
-今回のアプリはprompt
-
-
-todoは
-
-prompt
 
 DATA_SCHEMA.md
 title 説明
@@ -67,7 +80,7 @@ content プロンプト内容
 
 本番で共有したいので
 cloudflare workers
-prompt
+ocrcsv
 
 
 Firebase許可ドメイン
@@ -77,41 +90,34 @@ mylastwork.net
 
 Firebaseの設定
 
-
-  apiKey: "AIzaSyBJGI9dO5RXMVKNnJFziuDJc2bxzGu7QPA",
-authDomain: "prompt-50cab.firebaseapp.com",
-projectId: "prompt-50cab",
-storageBucket: "prompt-50cab.firebasestorage.app",
-messagingSenderId: "393087321775",
-appId: "1:393087321775:web:3e6a733637d57edf4db65a",
-measurementId: "G-9MZNXZ1PRX"
+  apiKey: "AIzaSyBHgeWGvXFROnJ13iPji1BDM3RcJz9SnAA",
+authDomain: "ocrcsv-bec19.firebaseapp.com",
+projectId: "ocrcsv-bec19",
+storageBucket: "ocrcsv-bec19.firebasestorage.app",
+messagingSenderId: "42194999993",
+appId: "1:42194999993:web:db78ab11ec491eda8a5968",
+measurementId: "G-QKGEEKK253"
 
 
 convexの設定
 
-production 
-prod:brazen-anteater-770|eyJ2MiI6ImVmNWFmZDdkNTg3YzRhYjlhMTQxMTYxOTU4MThjOThkIn0=
-development
-https://perceptive-avocet-282.convex.cloud
-https://perceptive-avocet-282.convex.site
+convex
+Project Name
+ocrcsv
+Project Slug
+ocrcsv
+
+Production Deploy Keys
+
+prod:hidden-seal-783|eyJ2MiI6Ijk4ZTllMTk4YWYzNjRjOTNiYTU3NGE2OTcyZDRkNTNhIn0=
 
 production 
-https://brazen-anteater-770.convex.cloud
-https://brazen-anteater-770.convex.site
 
-development
-https://perceptive-avocet-282.convex.cloud
-https://perceptive-avocet-282.convex.site
+https://hidden-seal-783.convex.site
+https://hidden-seal-783.convex.cloud
 
 
-Production
-Development
-切替え方法は？
 
-
-Production
-Development
-同期させるには？
 
 
 
@@ -122,31 +128,6 @@ Convexバックアップクエリ関数
 
 今後のバックアップ方法
 
-次回バックアップを取得する際は、以下のコマ
-ンドを実行してください：
-
-node scripts/backup-convex.mjs
-https://brazen-anteater-770.convex.cloud
-
-
-
-
-
-
-API経由だとリアルタイムでどうきされない
-iOSでもconvexを使うべきだな
-
-
-1. Convexのhttp.tsを無効化
-  - カスタムHTTP APIルート（/api/v1/*）を削除
-  - Convex標準のFunctions API（/api/query,
-/api/mutation）を有効化
-2. TodoAPIManagerを元に戻し
-  - ConvexClient経由で標準Functions APIを使用
-  - パス形式: "module:function" （コロン形式）
-3. Convexデプロイ完了
-  - https://brazen-anteater-770.convex.cloud
-に変更が反映
 
 
 
