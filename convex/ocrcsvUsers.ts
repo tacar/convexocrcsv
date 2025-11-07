@@ -46,3 +46,30 @@ export const getUserByExternalId = query({
       .first();
   },
 });
+
+export const updateDisplayName = mutation({
+  args: {
+    externalId: v.string(),
+    displayName: v.string(),
+  },
+  handler: async (ctx, args) => {
+    // ユーザーを検索
+    const existing = await ctx.db
+      .query("ocrcsv_users")
+      .withIndex("by_app_and_external", (q) =>
+        q.eq("appId", APP_ID).eq("externalId", args.externalId)
+      )
+      .first();
+
+    if (!existing) {
+      throw new Error("User not found");
+    }
+
+    // 表示名を更新
+    await ctx.db.patch(existing._id, {
+      displayName: args.displayName,
+    });
+
+    return { success: true };
+  },
+});
